@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:6
 
 RUN mkdir -p /usr/src/app
 
@@ -7,10 +7,10 @@ RUN mkdir -p /usr/src/app
 ARG NODE_ENV=production
 ENV NODE_ENV $NODE_ENV
 
-# if you want to change port you should change both of these
+# default to port 80, and 5858 or 9229 for debug
 ARG PORT=80
 ENV PORT $PORT
-EXPOSE $PORT
+EXPOSE $PORT 5858 9229
 
 # check every 30s to ensure this service returns HTTP 200
 HEALTHCHECK CMD curl -fs http://localhost:$PORT/healthz || exit 1

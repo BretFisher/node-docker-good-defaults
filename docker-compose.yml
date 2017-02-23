@@ -6,9 +6,11 @@ services:
       context: .
       args:
         - NODE_ENV=development
-    command: node ../node_modules/nodemon/bin/nodemon.js
+    command: node ../node_modules/nodemon/bin/nodemon.js --debug=5858
     ports:
       - "80:80"
+      - "5858:5858"
+      - "9229:9229"
     volumes:
       - .:/usr/src/app
     environment:
