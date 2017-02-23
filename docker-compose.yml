@@ -1,9 +1,16 @@
- node:
-  build: .
-  ports:
-    - "80:80"
-  volumes:
-    - .:/usr/src/app
-  environment:
-    - NODE_ENV=development
+version: '3.1'
+
+services:
+  node:
+    build: 
+      context: .
+      args:
+        - NODE_ENV=development
+    command: node ../node_modules/nodemon/bin/nodemon.js
+    ports:
+      - "80:80"
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - NODE_ENV=development
 
