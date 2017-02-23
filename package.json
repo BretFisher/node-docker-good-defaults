@@ -3,8 +3,16 @@
   "private": true,
   "version": "0.0.1",
   "description": "Node.js Hello world app using docker",
-  "author": "Bret Fisher <bret@fishbrains.com>",
+  "author": "Bret Fisher <bret@bretfisher.com>",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "./node_modules/nodemon/bin/nodemon.js"
+  },
   "dependencies": {
-    "express": "^4.13.3"
+    "express": "^4.14.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
