@@ -21,6 +21,12 @@ app.get('/', function (req, res) {
   res.send('Hello Docker World\n');
 });
 
+app.get('/healthz', function (req, res) {
+	// do app logic here to determine if app is truly healthy
+	// you should return 200 if healthy, and anything else will fail
+  res.send('I am happy and healthy\n');
+});
+
 var server = app.listen(PORT, function () {
   console.log('Webserver is ready');
 });
