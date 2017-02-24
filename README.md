@@ -4,22 +4,22 @@
 
 ### Local Development Features
 
- - *Dev as close to prod as you can*. docker-compose builds a local development image that is just like production image except for the below dev-only features needed in image. Goal is to have dev env be as close to test and prod as possible while still giving all the nice tools to make you a happy dev.
- - *Prevent needing node/npm on host*. Installs `node_modules` outside app root in container so local development won't run into a problem of bind-mounting over it with local source code. This means it wi ll `npm install` once on container build and you don't need to run npm on host or on each docker run. It will re-run on build if you change `package.json`.
- - *One line startup*. Uses `docker-compose up` for single-line build and run of local development server.
- - *Edit locally while code runs in container*. docker-compose uses proper bind-mounts of host source code into container so you can edit locally while running code in Linux container.
- - *Use nodemon in container*. docker-compose uses nodemon for development for auto-restarting node in container when you change files on host.
- - *Enable debug from host to container*. opens the legacy debug port 5858 and new inspect port 9229 for using host-based debugging like chrome tools or VS Code. Nodemon enables `--debug` by default in docker-compose, but you can change to `--inspect` for new 6.3+ debugging.
- - *Provides VSCode debug config*. for Visual Studio Code fans, `.vscode` has a config for both `--debug` and `--inspect` node options.
- - *Small image and quick re-builds*. `COPY` in `package.json` and run `npm install && npm cache clean` *before* `COPY` in your source code. This saves big on build time and keep container lean.
+ - **Dev as close to prod as you can**. docker-compose builds a local development image that is just like production image except for the below dev-only features needed in image. Goal is to have dev env be as close to test and prod as possible while still giving all the nice tools to make you a happy dev.
+ - **Prevent needing node/npm on host**. Installs `node_modules` outside app root in container so local development won't run into a problem of bind-mounting over it with local source code. This means it wi ll `npm install` once on container build and you don't need to run npm on host or on each docker run. It will re-run on build if you change `package.json`.
+ - **One line startup**. Uses `docker-compose up` for single-line build and run of local development server.
+ - **Edit locally while code runs in container**. docker-compose uses proper bind-mounts of host source code into container so you can edit locally while running code in Linux container.
+ - **Use nodemon in container**. docker-compose uses nodemon for development for auto-restarting node in container when you change files on host.
+ - **Enable debug from host to container**. opens the legacy debug port 5858 and new inspect port 9229 for using host-based debugging like chrome tools or VS Code. Nodemon enables `--debug` by default in docker-compose, but you can change to `--inspect` for new 6.3+ debugging.
+ - **Provides VSCode debug config**. for Visual Studio Code fans, `.vscode` has a config for both `--debug` and `--inspect` node options.
+ - **Small image and quick re-builds**. `COPY` in `package.json` and run `npm install && npm cache clean` **before** `COPY` in your source code. This saves big on build time and keep container lean.
 
 
 ### Production-minded Features
 
- - *Use Docker build-in healthchecks*. uses Dockerfile `HEALTHCHECK` with `/healthz` route to help Docker know if your container is running properly (example always returns 200, but you get the idea).
- - *Proper NODE_ENV use*. Defaults to `NODE_ENV=production` in Dockerfile and overrides to `development` in docker-compose for local dev.
- - *Don't add dev dependencies into production image*. Proper `NODE_ENV` use means dev dependencies won't be installed in container by default. Using docker-compose will build with them by default.
- - *Enables proper SIGTERM/SIGINT for graceful exit*. Defaults to `node index.js` rather then npm for allowing graceful shutdown of node. npm doesn't pass SIGTERM/SIGINT properly (you can't ctrl-c when running `docker run` in foreground). To get `node index.js` to graceful exit, extra signal-catching code is needed. The `Dockerfile` and `index.js` document the options and links to known issues.
+ - **Use Docker build-in healthchecks**. uses Dockerfile `HEALTHCHECK` with `/healthz` route to help Docker know if your container is running properly (example always returns 200, but you get the idea).
+ - **Proper NODE_ENV use**. Defaults to `NODE_ENV=production` in Dockerfile and overrides to `development` in docker-compose for local dev.
+ - **Don't add dev dependencies into production image**. Proper `NODE_ENV` use means dev dependencies won't be installed in container by default. Using docker-compose will build with them by default.
+ - **Enables proper SIGTERM/SIGINT for graceful exit**. Defaults to `node index.js` rather then npm for allowing graceful shutdown of node. npm doesn't pass SIGTERM/SIGINT properly (you can't ctrl-c when running `docker run` in foreground). To get `node index.js` to graceful exit, extra signal-catching code is needed. The `Dockerfile` and `index.js` document the options and links to known issues.
 
 
 ### Assumptions
