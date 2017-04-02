@@ -20,7 +20,7 @@ HEALTHCHECK CMD curl -fs http://localhost:$PORT/healthz || exit 1
 WORKDIR /usr/src
 COPY package.json /usr/src/
 RUN npm install && npm cache clean
-ENV PATH /data/node_modules/.bin:$PATH
+ENV PATH /usr/src/node_modules/.bin:$PATH
 
 # copy in our source code last, as it changes the most
 WORKDIR /usr/src/app
