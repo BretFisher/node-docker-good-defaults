@@ -4,11 +4,11 @@
         {
             "type": "node2",
             "request": "attach",
-            "name": "Attach to NEW Node Debug Port 9229",
+            "name": "Attach 9229 --inspect",
             "port": 9229
         },
         {
-            "name": "Docker: Attach to Node",
+            "name": "Attach 5858 --debug",
             "type": "node",
             "request": "attach",
             "port": 5858,

@@ -2,11 +2,13 @@ version: '3.1'
 
 services:
   node:
-    build: 
+    build:
       context: .
       args:
         - NODE_ENV=development
-    command: node ../node_modules/nodemon/bin/nodemon.js --debug=5858
+    # you can use standard debug config or expermintal node inspect
+    command: node --debug=5858 ../node_modules/nodemon/bin/nodemon.js
+    #command: node --inspect ../node_modules/nodemon/bin/nodemon.js
     ports:
       - "80:80"
       - "5858:5858"

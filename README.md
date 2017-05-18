@@ -30,7 +30,7 @@
  - You use `docker-compose` for local development only (docker-compose was never intended to be a production deployment tool anyway).
  - The `docker-compose.yml` is not meant for `docker stack deploy` in Docker 1.13, it's meant for happy local development.
 
-
+ 
 ### Getting Started
 
 If this was your Node.js app, to start local development you would:
