@@ -1,7 +1,7 @@
 # if you're doing anything beyond your local machine, please pin this to a specific version at https://hub.docker.com/_/node/
 FROM node:6
 
-RUN mkdir -p /usr/src/app
+RUN mkdir -p /opt/app
 
 # set our node environment, either development or production
 # defaults to production, compose overrides this to development on build and run
@@ -17,14 +17,14 @@ EXPOSE $PORT 5858 9229
 HEALTHCHECK CMD curl -fs http://localhost:$PORT/healthz || exit 1
 
 # install dependencies first, in a different location for easier app bind mounting for local development
-WORKDIR /usr/src
-COPY package.json /usr/src/
+WORKDIR /opt
+COPY package.json /opt
 RUN npm install && npm cache clean
-ENV PATH /usr/src/node_modules/.bin:$PATH
+ENV PATH /opt/node_modules/.bin:$PATH
 
 # copy in our source code last, as it changes the most
-WORKDIR /usr/src/app
-COPY . /usr/src/app
+WORKDIR /opt/app
+COPY . /opt/app
 
 # if you want to use npm start instead, then use `docker run --init in production`
 # so that signals are passed properly. Note the code in index.js is needed to catch Docker signals

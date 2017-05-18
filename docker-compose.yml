@@ -14,7 +14,7 @@ services:
       - "5858:5858"
       - "9229:9229"
     volumes:
-      - .:/usr/src/app
+      - .:/opt/app
     environment:
       - NODE_ENV=development
 
