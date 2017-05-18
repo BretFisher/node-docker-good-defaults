@@ -2,15 +2,17 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "node2",
-            "request": "attach",
             "name": "Attach 9229 --inspect",
+            "type": "node",
+            "request": "attach",
+            "protocol": "inspector",
             "port": 9229
         },
         {
             "name": "Attach 5858 --debug",
             "type": "node",
             "request": "attach",
+            "protocol": "legacy",
             "port": 5858,
             "address": "localhost",
             "restart": false,
