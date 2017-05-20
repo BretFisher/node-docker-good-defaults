@@ -17,7 +17,7 @@
             "sourceMaps": false,
             "outFiles": [],
             "localRoot": "${workspaceRoot}",
-            "remoteRoot": "/usr/src/app"
+            "remoteRoot": "/opt/app"
         }
     ]
 }
