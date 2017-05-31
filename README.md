@@ -5,7 +5,7 @@
 ### Local Development Features
 
  - **Dev as close to prod as you can**. docker-compose builds a local development image that is just like production image except for the below dev-only features needed in image. Goal is to have dev env be as close to test and prod as possible while still giving all the nice tools to make you a happy dev.
- - **Prevent needing node/npm on host**. Installs `node_modules` outside app root in container so local development won't run into a problem of bind-mounting over it with local source code. This means it wi ll `npm install` once on container build and you don't need to run npm on host or on each docker run. It will re-run on build if you change `package.json`.
+ - **Prevent needing node/npm on host**. Installs `node_modules` outside app root in container so local development won't run into a problem of bind-mounting over it with local source code. This means it will run `npm install` once on container build and you don't need to run npm on host or on each docker run. It will re-run on build if you change `package.json`.
  - **One line startup**. Uses `docker-compose up` for single-line build and run of local development server.
  - **Edit locally while code runs in container**. docker-compose uses proper bind-mounts of host source code into container so you can edit locally while running code in Linux container.
  - **Use nodemon in container**. docker-compose uses nodemon for development for auto-restarting node in container when you change files on host.
