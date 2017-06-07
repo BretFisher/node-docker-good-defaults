@@ -6,7 +6,9 @@
             "type": "node",
             "request": "attach",
             "protocol": "inspector",
-            "port": 9229
+            "port": 9229,
+            "localRoot": "${workspaceRoot}",
+            "remoteRoot": "/opt/app"
         },
         {
             "name": "Attach 5858 --debug",

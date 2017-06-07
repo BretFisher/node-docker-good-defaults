@@ -6,9 +6,9 @@ services:
       context: .
       args:
         - NODE_ENV=development
-    # you can use standard debug config or experimental node inspect
-    command: node --debug=5858 ../node_modules/nodemon/bin/nodemon.js
-    #command: node --inspect ../node_modules/nodemon/bin/nodemon.js
+    # you can use legacy debug config or new inspect
+    #command: ../node_modules/.bin/nodemon --debug=0.0.0.0:5858
+    command: ../node_modules/.bin/nodemon --inspect=0.0.0.0:9229
     ports:
       - "80:80"
       - "5858:5858"
