@@ -9,7 +9,7 @@
  - **One line startup**. Uses `docker-compose up` for single-line build and run of local development server.
  - **Edit locally while code runs in container**. docker-compose uses proper bind-mounts of host source code into container so you can edit locally while running code in Linux container.
  - **Use nodemon in container**. docker-compose uses nodemon for development for auto-restarting node in container when you change files on host.
- - **Enable debug from host to container**. opens the legacy debug port 5858 and new inspect port 9229 for using host-based debugging like chrome tools or VS Code. Nodemon enables `--debug` by default in docker-compose, but you can change to `--inspect` for new 6.3+ debugging.
+ - **Enable debug from host to container**. opens the legacy debug port 5858 and new inspect port 9229 for using host-based debugging like chrome tools or VS Code. Nodemon enables `--inspect` by default in docker-compose, but you can change to `--debug` for < 6.3 debugging.
  - **Provides VSCode debug config**. for Visual Studio Code fans, `.vscode` has a config for both `--debug` and `--inspect` node options.
  - **Small image and quick re-builds**. `COPY` in `package.json` and run `npm install && npm cache clean` **before** `COPY` in your source code. This saves big on build time and keep container lean.
 
