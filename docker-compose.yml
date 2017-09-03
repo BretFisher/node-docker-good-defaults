@@ -15,6 +15,7 @@ services:
       - "9229:9229"
     volumes:
       - .:/opt/app
+      - /opt/app/node_modules
     environment:
       - NODE_ENV=development
 
