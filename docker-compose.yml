@@ -23,3 +23,5 @@ services:
     environment:
       - NODE_ENV=development
 
+volumes:
+    notused:
