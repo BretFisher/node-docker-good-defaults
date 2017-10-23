@@ -25,6 +25,9 @@ services:
       - notused:/opt/app/node_modules
     environment:
       - NODE_ENV=development
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
 
   mysql:
     image: mysql:5.7
