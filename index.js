@@ -12,6 +12,16 @@ var morgan = require('morgan');
 // which is a best practice in Docker. Friends don't let friends code their apps to
 // do app logging to files in containers.
 
+const knex = require('knex')({
+  client: 'mysql',
+  connection: {
+    host : process.env.MYSQL_HOST,
+    user : process.env.MYSQL_USER,
+    password : process.env.MYSQL_PASSWORD,
+    database : process.env.MYSQL_DATABASE
+  }
+});
+
 // Constants
 const PORT = process.env.PORT || 8080;
 // if you're not using docker-compose for local development, this will default to 8080
@@ -38,6 +48,16 @@ var server = app.listen(PORT, function () {
   console.log('Webserver is ready');
 });
 
+// shut down server
+function shutdown() {
+  server.close(function onServerClosed (err) {
+    if (err) {
+      console.error(err);
+      process.exitCode = 1;
+		}
+		process.exit();
+  });
+}
 
 //
 // need this in docker container to properly exit since node doesn't handle SIGINT/SIGTERM
@@ -59,19 +79,8 @@ process.on('SIGINT', function onSigint () {
 process.on('SIGTERM', function onSigterm () {
   console.info('Got SIGTERM (docker container stop). Graceful shutdown ', new Date().toISOString());
   shutdown();
-})
+});
 
-// shut down server
-function shutdown() {
-  server.close(function onServerClosed (err) {
-    if (err) {
-      console.error(err);
-      process.exitCode = 1;
-		}
-		process.exit();
-  })
-}
 //
 // need above in docker container to properly exit
 //
-
