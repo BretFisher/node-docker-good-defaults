@@ -6,9 +6,12 @@
   "author": "Bret Fisher <bret@bretfisher.com>",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev-docker": "../node_modules/nodemon/bin/nodemon.js --debug=5858",
-    "dev-host": "nodemon --debug=5858"
+    "nodemon": "nodemon",
+    "start": "npm run transpile && node ./dist/index.js",
+    "start:debug": "npm run transpile && node --debug=5858 ./dist/index.js",
+    "start:dev": "nodemon --watch src -L --exec npm run start:debug",
+    "tsc": "tsc",
+    "transpile": "tsc  --listEmittedFiles"
   },
   "dependencies": {
     "express": "^4.14.1",
@@ -17,6 +20,9 @@
     "mysql": "^2.15.0"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0"
+    "@types/mocha": "^2.2.43",
+    "@types/node": "^8.0.46",
+    "nodemon": "^1.11.0",
+    "typescript": "^2.5.3"
   }
 }
