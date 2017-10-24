@@ -67,3 +67,7 @@ Temporary Items
 
 # docker
 data/
+
+# Typescript
+**/*.js
+dist/

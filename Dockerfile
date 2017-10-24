@@ -9,7 +9,7 @@ ARG NODE_ENV=production
 ENV NODE_ENV $NODE_ENV
 
 # default to port 80 for node, and 5858 or 9229 for debug
-ARG PORT=80
+ARG PORT=8080
 ENV PORT $PORT
 EXPOSE $PORT 5858 9229
 
