@@ -9,7 +9,7 @@
     "nodemon": "nodemon",
     "start": "npm run transpile && node ./dist/index.js",
     "start:debug": "npm run transpile && node --debug=5858 ./dist/index.js",
-    "start:dev": "nodemon --watch src -L --exec npm run start:debug",
+    "start:dev": "nodemon --watch src -e ts -L --exec npm run start:debug",
     "tsc": "tsc",
     "transpile": "tsc  --listEmittedFiles"
   },
