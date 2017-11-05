@@ -18,7 +18,7 @@ HEALTHCHECK CMD curl -fs http://localhost:$PORT/healthz || exit 1
 
 # install dependencies first, in a different location for easier app bind mounting for local development
 WORKDIR /opt
-COPY package.json /opt
+COPY package.json package-lock.json ./
 RUN npm install && npm cache clean --force
 ENV PATH /opt/node_modules/.bin:$PATH
 
