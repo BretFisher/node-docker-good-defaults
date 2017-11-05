@@ -13,7 +13,7 @@ services:
     #command: ../node_modules/.bin/nodemon --debug=0.0.0.0:5858
     command: "npm run start:dev"
     ports:
-      - "8080:8080"
+      - "8081:8081"
       - "5858:5858"
       - "9229:9229"
     volumes:
@@ -28,7 +28,26 @@ services:
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-
+  ui:
+    build:
+      context: ./ui/
+      args:
+        - NODE_ENV=development
+    # you can use legacy debug config or new inspect
+    # NOTE: if nodemon isn't restarting on changes, you might be on Windows
+    # which has trouble seeing file changes, so add -L to use legacy polling
+    # https://github.com/remy/nodemon#application-isnt-restarting
+    #command: ../node_modules/.bin/nodemon --debug=0.0.0.0:5858
+    command: "npm run start:dev"
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./ui/:/opt/app
+      # this is a workaround to prevent host node_modules from accidently getting mounted in container
+      # in case you want to use node/npm both outside container for test/lint etc. and also inside container
+      # this will overwrite the default node_modules dir in container so it won't conflict with our
+      # /opt/node_modules location. Thanks to PR from @brnluiz
+      - notused:/opt/app/node_modules
   mysql:
     image: mysql:5.7
     hostname: ${MYSQL_HOST}

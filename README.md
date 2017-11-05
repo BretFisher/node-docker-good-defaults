@@ -2,6 +2,11 @@
 
 > This tries to be a "good defaults" example of using Node.js in Docker for local development and shipping to production with all the bells, whistles, and best practices. Issues/PR welcome.
 
+### Features
+- [x] Node express server
+- [x] Preact ui server (for serving front end app)
+- [x] MySQL as a DB.
+
 ### Local Development Features
 
  - **Dev as close to prod as you can**. docker-compose builds a local development image that is just like production image except for the below dev-only features needed in image. Goal is to have dev env be as close to test and prod as possible while still giving all the nice tools to make you a happy dev.
