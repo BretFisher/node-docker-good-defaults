@@ -1,0 +1,32 @@
+{
+  "private": true,
+  "name": "ui",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "start:dev": "npm run -s dev",
+    "start": "npm run -s serve",
+    "build": "preact build",
+    "serve": "preact build && preact serve",
+    "dev": "preact watch",
+    "test": "eslint src && preact test"
+  },
+  "eslintConfig": {
+    "extends": "eslint-config-synacor"
+  },
+  "eslintIgnore": [
+    "build/*"
+  ],
+  "devDependencies": {
+    "eslint": "^4.5.0",
+    "eslint-config-synacor": "^1.1.0",
+    "if-env": "^1.0.0",
+    "preact-cli": "^2.0.0"
+  },
+  "dependencies": {
+    "preact": "^8.2.1",
+    "preact-compat": "^3.17.0",
+    "preact-router": "^2.5.5",
+    "preact-material-components": "^1.2.3"
+  }
+}

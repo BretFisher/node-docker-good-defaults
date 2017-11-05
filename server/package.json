@@ -1,0 +1,28 @@
+{
+  "name": "node-docker-good-defaults",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Node.js Hello world app using docker features for easy docker-compose local dev and solid production defaults",
+  "author": "Bret Fisher <bret@bretfisher.com>",
+  "main": "index.js",
+  "scripts": {
+    "nodemon": "nodemon",
+    "start": "npm run transpile && node ./dist/index.js",
+    "start:debug": "npm run transpile && node --debug=5858 ./dist/index.js",
+    "start:dev": "nodemon --watch src -e ts -L --exec npm run start:debug",
+    "tsc": "tsc",
+    "transpile": "tsc  --listEmittedFiles"
+  },
+  "dependencies": {
+    "express": "^4.14.1",
+    "knex": "^0.13.0",
+    "morgan": "^1.8.1",
+    "mysql": "^2.15.0"
+  },
+  "devDependencies": {
+    "@types/mocha": "^2.2.44",
+    "@types/node": "^8.0.47",
+    "nodemon": "^1.11.0",
+    "typescript": "^2.5.3"
+  }
+}

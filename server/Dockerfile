@@ -9,7 +9,7 @@ ARG NODE_ENV=production
 ENV NODE_ENV $NODE_ENV
 
 # default to port 80 for node, and 5858 or 9229 for debug
-ARG PORT=80
+ARG PORT=8081
 ENV PORT $PORT
 EXPOSE $PORT 5858 9229
 
@@ -30,4 +30,4 @@ COPY . /opt/app
 # so that signals are passed properly. Note the code in index.js is needed to catch Docker signals
 # using node here is still more graceful stopping then npm with --init afaik
 # I still can't come up with a good production way to run with npm and graceful shutdown
-CMD [ "node", "index.js" ]
+CMD [ "npm", "start" ]

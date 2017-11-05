@@ -2,6 +2,11 @@
 
 > This tries to be a "good defaults" example of using Node.js in Docker for local development and shipping to production with all the bells, whistles, and best practices. Issues/PR welcome.
 
+### Features
+- [x] Node express server
+- [x] Preact ui server (for serving front end app)
+- [x] MySQL as a DB.
+
 ### Local Development Features
 
  - **Dev as close to prod as you can**. docker-compose builds a local development image that is just like production image except for the below dev-only features needed in image. Goal is to have dev env be as close to test and prod as possible while still giving all the nice tools to make you a happy dev.
@@ -30,7 +35,7 @@
  - You use `docker-compose` for local development only (docker-compose was never intended to be a production deployment tool anyway).
  - The `docker-compose.yml` is not meant for `docker stack deploy` in Docker 1.13, it's meant for happy local development.
 
- 
+
 ### Getting Started
 
 If this was your Node.js app, to start local development you would:
@@ -44,9 +49,41 @@ If this was your Node.js app, to start local development you would:
  - Compose should detect if you need to rebuild due to changed package.json or Dockerfile, but `docker-compose build` works for manually building.
  - Be sure to use `docker-compose down` to cleanup after your done dev'ing.
 
+### MySQL shell access
 
+ ```sh
+ sudo docker exec -it mysql bash
+ ```
 
-MIT License, 
+ and
+
+ ```sh
+ mysql -u"$MYSQL_ROOT_USER" -p"$MYSQL_ROOT_PASSWORD"
+ ```
+
+ #### Backup of database
+
+ ```sh
+ mkdir -p data/db/dumps
+ ```
+
+ ```sh
+ source .env && sudo docker exec $(shell docker-compose ps -q mysqldb) mysqldump --all-databases -u"$MYSQL_ROOT_USER" -p"$MYSQL_ROOT_PASSWORD" > "data/db/dumps/db.sql"
+ ```
+
+ or
+
+ ```sh
+ source .env && sudo docker exec $(shell docker-compose ps -q mysqldb) mysqldump test -u"$MYSQL_ROOT_USER" -p"$MYSQL_ROOT_PASSWORD" > "data/db/dumps/test.sql"
+ ```
+
+ #### Restore Database
+
+ ```sh
+ source .env && sudo docker exec -i $(sudo docker-compose ps -q mysqldb) mysql -u"$MYSQL_ROOT_USER" -p"$MYSQL_ROOT_PASSWORD" < "data/db/dumps/db.sql"
+ ```
+
+MIT License,
 
 Copyright (c) 2015-2017 Bret Fisher
 
