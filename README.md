@@ -44,7 +44,9 @@ If this was your Node.js app, to start local development you would:
  - Compose should detect if you need to rebuild due to changed package.json or Dockerfile, but `docker-compose build` works for manually building.
  - Be sure to use `docker-compose down` to cleanup after your done dev'ing.
 
+### Other Resources
 
+ - https://blog.hasura.io/an-exhaustive-guide-to-writing-dockerfiles-for-node-js-web-apps-bbee6bd2f3c4
 
 MIT License, 
 
