@@ -17,7 +17,7 @@ services:
       - "5858:5858"
       - "9229:9229"
     volumes:
-      - .:/opt/app
+      - .:/opt/app:delegated
       # this is a workaround to prevent host node_modules from accidently getting mounted in container
       # in case you want to use node/npm both outside container for test/lint etc. and also inside container
       # this will overwrite the default node_modules dir in container so it won't conflict with our
