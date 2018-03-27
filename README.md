@@ -37,12 +37,19 @@ If this was your Node.js app, to start local development you would:
 
  - Running `docker-compose up` is all you need. It will:
  - Build custom local image enabled for development (nodemon, `NODE_ENV=development`).
- - Start container from that image with ports 80, 5858, and 9229 open (on localhost).
+ - Start container from that image with ports 80 and 9229 open (on localhost).
  - Starts with `nodemon` to restart node on file change in host pwd.
  - Mounts the pwd to the app dir in container.
  - If you need other services like databases, just add to compose file and they'll be added to the custom Docker network for this app on `up`.
  - Compose should detect if you need to rebuild due to changed package.json or Dockerfile, but `docker-compose build` works for manually building.
  - Be sure to use `docker-compose down` to cleanup after your done dev'ing.
+
+To execute the unit-tests, you would:
+ - Execute `docker-compose exec node npm test`, It will:
+ - Run a process `npm test` in the container node.
+ - You can use the *vscode* to debug unit-tests with config `Docker Test (Attach 9230 --inspect)`, It will:
+   - Start a debugging process in the container and wait-for-debugger, this is done by *vscode tasks*
+   - It will also kill previous debugging process if existing.
 
 ### Other Resources
 

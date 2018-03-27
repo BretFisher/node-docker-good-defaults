@@ -8,10 +8,10 @@ RUN mkdir -p /opt/app
 ARG NODE_ENV=production
 ENV NODE_ENV $NODE_ENV
 
-# default to port 80 for node, and 5858 or 9229 for debug
+# default to port 80 for node, and 9229 and 9230 (tests) for debug
 ARG PORT=80
 ENV PORT $PORT
-EXPOSE $PORT 5858 9229
+EXPOSE $PORT 9229 9230
 
 # check every 30s to ensure this service returns HTTP 200
 HEALTHCHECK CMD curl -fs http://localhost:$PORT/healthz || exit 1

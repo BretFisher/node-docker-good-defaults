@@ -14,8 +14,8 @@ services:
     command: ../node_modules/.bin/nodemon --inspect=0.0.0.0:9229
     ports:
       - "80:80"
-      - "5858:5858"
       - "9229:9229"
+      - "9230:9230"
     volumes:
       - .:/opt/app:delegated
       # this is a workaround to prevent host node_modules from accidently getting mounted in container
