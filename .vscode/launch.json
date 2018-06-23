@@ -11,17 +11,15 @@
             "remoteRoot": "/opt/app"
         },
         {
-            "name": "Attach 5858 --debug",
+            "name": "Docker Test (Attach 9230 --inspect)",
             "type": "node",
             "request": "attach",
-            "protocol": "legacy",
-            "port": 5858,
-            "address": "localhost",
-            "restart": false,
-            "sourceMaps": false,
-            "outFiles": [],
+            "protocol": "inspector",
+            "port": 9230,
             "localRoot": "${workspaceRoot}",
-            "remoteRoot": "/opt/app"
+            "remoteRoot": "/opt/app",
+            "preLaunchTask": "Docker npm run test-wait-debuger", // See ./tasks.json
+            "internalConsoleOptions": "openOnSessionStart"
         }
     ]
 }

@@ -1,0 +1,60 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      // Execute command in docker
+      "label": "Docker npm test",
+      "type": "shell",
+      "command": "docker-compose exec node npm test",
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
+    {
+      // Execute command in docker
+      "label": "Docker npm run test-watch",
+      "type": "shell",
+      "command": "docker-compose exec node npm run test-watch",
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
+    {
+      // Execute command in docker
+      // This task is use as preLaunchTask of launch (Remote Debuging Attach)
+      // This will execute 2 things:
+      //  -Kill previous process, to make sure we restart debug from start
+      //   --use pkill with cmd process argument match, in this case "0.0.0.0:9230"
+      //  -Start start test and wait for debugger, see test-wait-debuger in package.json
+      "label": "Docker npm run test-wait-debuger",
+      "type": "shell",
+      "command": "docker-compose exec node pkill -c --oldest --full \"0.0.0.0:9230\"; docker-compose exec -d node npm run test-wait-debuger",
+      "windows": {
+        "command": "docker-compose exec node pkill -c --oldest --full \"0.0.0.0:9230\"& docker-compose exec -d node npm run test-wait-debuger"
+      },
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
+    {
+      // Execute command in docker
+      "label": "Docker terminal in container (bash)",
+      "type": "shell",
+      "command": "docker-compose exec node bash",
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true
+      }
+    },
+  ]
+}

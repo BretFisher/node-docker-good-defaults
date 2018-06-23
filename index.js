@@ -75,3 +75,4 @@ function shutdown() {
 // need above in docker container to properly exit
 //
 
+module.exports = app;
