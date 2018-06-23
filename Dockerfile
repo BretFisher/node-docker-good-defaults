@@ -13,14 +13,14 @@ ARG PORT=80
 ENV PORT $PORT
 EXPOSE $PORT 5858 9229
 
-# check every 30s to ensure this service returns HTTP 200
-HEALTHCHECK CMD curl -fs http://localhost:$PORT/healthz || exit 1
-
 # install dependencies first, in a different location for easier app bind mounting for local development
 WORKDIR /opt
 COPY package.json package-lock.json* ./
 RUN npm install && npm cache clean --force
 ENV PATH /opt/node_modules/.bin:$PATH
+
+# check every 30s to ensure this service returns HTTP 200
+HEALTHCHECK --interval=30s CMD node healthcheck.js
 
 # copy in our source code last, as it changes the most
 WORKDIR /opt/app
