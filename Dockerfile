@@ -13,6 +13,9 @@ ARG PORT=80
 ENV PORT $PORT
 EXPOSE $PORT 9229 9230
 
+# you'll likely want the latest npm, reguardless of node version, for speed and fixes
+RUN npm i npm@latest -g
+
 # install dependencies first, in a different location for easier app bind mounting for local development
 WORKDIR /opt
 COPY package.json package-lock.json* ./
