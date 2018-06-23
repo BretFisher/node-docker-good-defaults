@@ -1,0 +1,15 @@
+version: '3.1'
+
+# a stack-file version of this for running in Swarm services
+
+services:
+  node:
+    # reminder, don't use latest tag in production, use versions created by CI/CD
+    image: bretfisher/node-docker-good-defaults:latest
+    ports:
+      - "80:80"
+    environment:
+      - NODE_ENV=production
+    deploy:
+      replicas: 2
+

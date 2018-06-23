@@ -21,6 +21,7 @@
  - **Proper NODE_ENV use**. Defaults to `NODE_ENV=production` in Dockerfile and overrides to `development` in docker-compose for local dev.
  - **Don't add dev dependencies into production image**. Proper `NODE_ENV` use means dev dependencies won't be installed in container by default. Using docker-compose will build with them by default.
  - **Enables proper SIGTERM/SIGINT for graceful exit**. Defaults to `node index.js` rather then npm for allowing graceful shutdown of node. npm doesn't pass SIGTERM/SIGINT properly (you can't ctrl-c when running `docker run` in foreground). To get `node index.js` to graceful exit, extra signal-catching code is needed. The `Dockerfile` and `index.js` document the options and links to known issues.
+ - **Use docker-stack.yml example for Docker Swarm deployments**.
 
 
 ### Assumptions
@@ -29,7 +30,7 @@
  - You want to use Docker for local development (i.e. never need to install node/npm on host) and have dev and prod Docker images be as close as possible.
  - You don't want to loose fidelity in your dev workflow. You want a easy environment setup, using local editors, node debug/inspect, local code repo, while node server runs in a container.
  - You use `docker-compose` for local development only (docker-compose was never intended to be a production deployment tool anyway).
- - The `docker-compose.yml` is not meant for `docker stack deploy` in Docker Swarm, it's meant for happy local development.
+ - The `docker-compose.yml` is not meant for `docker stack deploy` in Docker Swarm, it's meant for happy local development. Use `docker-stack.yml` for Swarm.
 
  
 ### Getting Started
