@@ -9,9 +9,10 @@
  - **One line startup**. Uses `docker-compose up` for single-line build and run of local development server.
  - **Edit locally while code runs in container**. docker-compose uses proper bind-mounts of host source code into container so you can edit locally while running code in Linux container.
  - **Use nodemon in container**. docker-compose uses nodemon for development for auto-restarting node in container when you change files on host.
- - **Enable debug from host to container**. opens the legacy debug port 5858 and new inspect port 9229 for using host-based debugging like chrome tools or VS Code. Nodemon enables `--inspect` by default in docker-compose, but you can change to `--debug` for < 6.3 debugging.
- - **Provides VSCode debug config**. for Visual Studio Code fans, `.vscode` has a config for both `--debug` and `--inspect` node options.
- - **Small image and quick re-builds**. `COPY` in `package.json` and run `npm install && npm cache clean` **before** `COPY` in your source code. This saves big on build time and keep container lean.
+ - **Enable debug from host to container**. opens the inspect port 9229 for using host-based debugging like chrome tools or VS Code. Nodemon enables `--inspect` by default in docker-compose.
+ - **Provides VSCode debug configs and tasks for tests**. for Visual Studio Code fans, `.vscode` directory has the goods, thanks to @JPLemelin.
+ - **Small image and quick re-builds**. `COPY` in `package.json` and run `npm install` **before** `COPY` in your source code. This saves big on build time and keep container lean.
+ - **Bind-mount package.json**. This allows adding packages in realtime without rebuilding images. e.g. `dce node npm install --save <package name>`
 
 
 ### Production-minded Features
@@ -28,7 +29,7 @@
  - You want to use Docker for local development (i.e. never need to install node/npm on host) and have dev and prod Docker images be as close as possible.
  - You don't want to loose fidelity in your dev workflow. You want a easy environment setup, using local editors, node debug/inspect, local code repo, while node server runs in a container.
  - You use `docker-compose` for local development only (docker-compose was never intended to be a production deployment tool anyway).
- - The `docker-compose.yml` is not meant for `docker stack deploy` in Docker 1.13, it's meant for happy local development.
+ - The `docker-compose.yml` is not meant for `docker stack deploy` in Docker Swarm, it's meant for happy local development.
 
  
 ### Getting Started
@@ -44,6 +45,12 @@ If this was your Node.js app, to start local development you would:
  - Compose should detect if you need to rebuild due to changed package.json or Dockerfile, but `docker-compose build` works for manually building.
  - Be sure to use `docker-compose down` to cleanup after your done dev'ing.
 
+If you wanted to add a package while docker-compose was running your app:
+ - `docker-compose exec node npm install --save <package name>`
+ - This installs it inside the running container.
+ - Nodemon will detect the change and restart.
+ - `--save` will add it to the package.json for next `docker-compose build`
+
 To execute the unit-tests, you would:
  - Execute `docker-compose exec node npm test`, It will:
  - Run a process `npm test` in the container node.
@@ -57,7 +64,7 @@ To execute the unit-tests, you would:
 
 MIT License, 
 
-Copyright (c) 2015-2017 Bret Fisher
+Copyright (c) 2015-2018 Bret Fisher
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

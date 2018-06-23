@@ -1,7 +1,7 @@
 {
   "name": "node-docker-good-defaults",
   "private": true,
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Node.js Hello world app using docker features for easy docker-compose local dev and solid production defaults",
   "author": "Bret Fisher <bret@bretfisher.com>",
   "main": "index.js",
