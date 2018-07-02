@@ -4,13 +4,13 @@
   "version": "2.0.0",
   "description": "Node.js Hello world app using docker features for easy docker-compose local dev and solid production defaults",
   "author": "Bret Fisher <bret@bretfisher.com>",
-  "main": "index.js",
+  "main": "bin/www",
   "scripts": {
-    "start": "node index.js",
+    "start": "node bin/www",
     "dev-docker": "../node_modules/nodemon/bin/nodemon.js --debug=5858",
     "dev-host": "nodemon --debug=5858",
-    "start-watch": "nodemon index.js --inspect=0.0.0.0:9229",
-    "start-wait-debuger": "nodemon index.js --inspect-brk=0.0.0.0:9229",
+    "start-watch": "nodemon bin/www --inspect=0.0.0.0:9229",
+    "start-wait-debuger": "nodemon bin/www --inspect-brk=0.0.0.0:9229",
     "test": "cross-env NODE_ENV=test PORT=8081 mocha --timeout 10000 --exit --inspect=0.0.0.0:9230",
     "test-watch": "nodemon --exec \"npm test\"",
     "test-wait-debuger": "cross-env NODE_ENV=test PORT=8081 mocha --no-timeouts --exit --inspect-brk=0.0.0.0:9230"

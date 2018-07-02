@@ -1,0 +1,107 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+const app = require("../index");
+const debug = require("debug")("server:server");
+const http = require("http");
+
+/**
+ * Constants
+ */
+
+const PORT = process.env.PORT || 8080;
+// if you're not using docker-compose for local development, this will default to 8080
+// to prevent non-root permission problems with 80. Dockerfile is set to make this 80
+// because containers don't have that issue :)
+
+app.set("port", PORT);
+
+/**
+ * Create HTTP server.
+ */
+
+const server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(PORT);
+server.on("error", onError);
+server.on("listening", onListening);
+
+
+/**
+ * need this in docker container to properly exit since node doesn't handle SIGINT/SIGTERM
+ * this also won't work on using npm start since:
+ * https://github.com/npm/npm/issues/4603
+ * https://github.com/npm/npm/pull/10868
+ * https://github.com/RisingStack/kubernetes-graceful-shutdown-example/blob/master/src/index.js
+ * if you want to use npm then start with `docker run --init` to help, but I still don't think it's
+ * a graceful shutdown of node process
+ * 
+ * quit on ctrl-c when running docker in terminal
+ */
+
+process.on('SIGINT', function onSigint () {
+	console.info('Got SIGINT (aka ctrl-c in docker). Graceful shutdown ', new Date().toISOString());
+  shutdown();
+});
+
+// quit properly on docker stop
+process.on('SIGTERM', function onSigterm () {
+  console.info('Got SIGTERM (docker container stop). Graceful shutdown ', new Date().toISOString());
+  shutdown();
+})
+
+// shut down server
+function shutdown() {
+  server.close(function onServerClosed (err) {
+    if (err) {
+      console.error(err);
+      process.exitCode = 1;
+		}
+		process.exit();
+  })
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== "listen") {
+    throw error;
+  }
+
+  const bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case "EACCES":
+      console.error(bind + " requires elevated privileges");
+      process.exit(1);
+      break;
+    case "EADDRINUSE":
+      console.error(bind + " is already in use");
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  const addr = server.address();
+  const bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
+  debug("Listening on " + bind);
+
+  console.log("Server listenning on port:", addr.port);
+}
