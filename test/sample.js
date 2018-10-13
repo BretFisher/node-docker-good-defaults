@@ -30,3 +30,15 @@ describe('API /', () => {
     });
 });
 
+describe('API /documents', () => {
+    it('it should return an empty array', (done) => {
+        chai.request(app)
+            .get('/')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.should.to.be.html;
+                res.text.should.be.equal([]);
+                done();
+            });
+    });
+});

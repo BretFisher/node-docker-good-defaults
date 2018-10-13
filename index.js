@@ -1,19 +1,41 @@
 // simple node web server that displays hello world
 // optimized for Docker image
 
-var express = require('express');
+const express = require('express');
 // this example uses express web framework so we know what longer build times
 // do and how Dockerfile layer ordering matters. If you mess up Dockerfile ordering
 // you'll see long build times on every code change + build. If done correctly,
 // code changes should be only a few seconds to build locally due to build cache.
 
-var morgan = require('morgan');
+const morgan = require('morgan');
 // morgan provides easy logging for express, and by default it logs to stdout
 // which is a best practice in Docker. Friends don't let friends code their apps to
 // do app logging to files in containers.
 
-// Appi
-var app = express();
+const MongoClient = require('mongodb').MongoClient;
+// this example includes a connection to MongoDB
+
+const {
+  ME_CONFIG_MONGODB_ADMINUSERNAME,
+  ME_CONFIG_MONGODB_ADMINPASSWORD
+} = process.env;
+
+// Connection URL
+const url = `mongodb://${ME_CONFIG_MONGODB_ADMINUSERNAME}:${ME_CONFIG_MONGODB_ADMINPASSWORD}@mongo:27017`;
+// Database Name
+const dbName = 'example-database';
+// Create a new MongoClient
+const client = new MongoClient(url);
+
+let db;
+// Use connect method to connect to the Server
+client.connect(function(err) {
+  console.log("Connected successfully to server");
+  db = client.db(dbName);
+});
+
+// Api
+const app = express();
 
 app.use(morgan('common'));
 
@@ -28,5 +50,20 @@ app.get('/healthz', function (req, res) {
   res.send('I am happy and healthy\n');
 });
 
+app.get('/documents', function (req, res, next) {
+  // might have not been connected just yet
+  if (db) {
+    db.collection('documents').find({}).toArray(function(err, docs) {
+      if (err) {
+        console.error(err);
+        next(new Error('Error while talking to database'));
+      } else {
+        res.json(docs);
+      }
+    });
+  } else {
+    next(new Error('Waiting for connection to database'));
+  }
+})
 
 module.exports = app;
