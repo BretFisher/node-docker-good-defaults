@@ -12,7 +12,7 @@
  - **Enable debug from host to container**. opens the inspect port 9229 for using host-based debugging like chrome tools or VS Code. Nodemon enables `--inspect` by default in docker-compose.
  - **Provides VSCode debug configs and tasks for tests**. for Visual Studio Code fans, `.vscode` directory has the goods, thanks to @JPLemelin.
  - **Small image and quick re-builds**. `COPY` in `package.json` and run `npm install` **before** `COPY` in your source code. This saves big on build time and keep container lean.
- - **Bind-mount package.json**. This allows adding packages in realtime without rebuilding images. e.g. `dce node npm install --save <package name>`
+ - **Bind-mount package.json**. This allows adding packages in realtime without rebuilding images. e.g. `dce node npm install --save <package name>` (dosn't work on all systems)
 
 
 ### Production-minded Features
