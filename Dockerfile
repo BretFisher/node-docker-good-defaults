@@ -1,7 +1,6 @@
 # if you're doing anything beyond your local machine, please pin this to a specific version at https://hub.docker.com/_/node/
+# FROM node:8-alpine also works here for a smaller image
 FROM node:8
-
-RUN mkdir -p /opt/app
 
 # set our node environment, either development or production
 # defaults to production, compose overrides this to development on build and run
@@ -14,12 +13,13 @@ ENV PORT $PORT
 EXPOSE $PORT 9229 9230
 
 # you'll likely want the latest npm, regardless of node version, for speed and fixes
+# but pin this version for the best stability
 RUN npm i npm@latest -g
 
 # install dependencies first, in a different location for easier app bind mounting for local development
 WORKDIR /opt
 COPY package.json package-lock.json* ./
-RUN npm install && npm cache clean --force
+RUN npm install --no-optional && npm cache clean --force
 ENV PATH /opt/node_modules/.bin:$PATH
 
 # check every 30s to ensure this service returns HTTP 200
