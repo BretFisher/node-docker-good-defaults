@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 8080;
 // because containers don't have that issue :)
 
 var server = app.listen(PORT, function () {
-    console.log('Webserver is ready');
+    console.log(`Webserver is ready and listening on port ${PORT}`);
   });
   
 //
@@ -35,13 +35,37 @@ process.on('SIGTERM', function onSigterm () {
   shutdown();
 })
 
+let sockets = {}, nextSocketId = 0;
+server.on('connection', function (socket) {
+  const socketId = nextSocketId++;
+  sockets[socketId] = socket;
+
+  socket.once('close', function() {
+    delete sockets[socketId];
+  });
+});
+
 // shut down server
 function shutdown() {
+  waitForSocketsToClose(10);
+
   server.close(function onServerClosed (err) {
     if (err) {
       console.error(err);
       process.exitCode = 1;
-		}
-		process.exit();
-  })
+    }
+    process.exit();
+  });
+}
+
+function waitForSocketsToClose(counter) {
+  if (counter > 0) {
+    console.log(`Waiting ${counter} more ${counter === 1 ? 'seconds' : 'second'} for all connections to close...`);
+    return setTimeout(waitForSocketsToClose, 1000, counter - 1);
+  }
+  
+  console.log("Forcing all connections to close now");
+  for (var socketId in sockets) {
+    sockets[socketId].destroy();
+  }
 }
