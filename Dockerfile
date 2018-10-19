@@ -12,7 +12,7 @@ ARG PORT=80
 ENV PORT $PORT
 EXPOSE $PORT 9229 9230
 
-# you'll likely want the latest npm, reguardless of node version, for speed and fixes
+# you'll likely want the latest npm, regardless of node version, for speed and fixes
 # but pin this version for the best stability
 RUN npm i npm@latest -g
 
