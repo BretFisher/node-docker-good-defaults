@@ -7,8 +7,8 @@ FROM node:8
 ARG NODE_ENV=production
 ENV NODE_ENV $NODE_ENV
 
-# default to port 80 for node, and 9229 and 9230 (tests) for debug
-ARG PORT=80
+# default to port 3000 for node, and 9229 and 9230 (tests) for debug
+ARG PORT=3000
 ENV PORT $PORT
 EXPOSE $PORT 9229 9230
 
@@ -28,6 +28,10 @@ HEALTHCHECK --interval=30s CMD node healthcheck.js
 # copy in our source code last, as it changes the most
 WORKDIR /opt/app
 COPY . /opt/app
+
+# the official node image provides an unprivileged user as a security best practise
+# https://github.com/nodejs/docker-node/blob/master/docs/BestPractices.md#non-root-user
+USER node
 
 # if you want to use npm start instead, then use `docker run --init in production`
 # so that signals are passed properly. Note the code in index.js is needed to catch Docker signals

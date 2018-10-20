@@ -69,17 +69,6 @@ As mentioned in the official docker node image docs, Docker runs the image as ro
 As a security best practise, it is recommended for node apps to listen on non-privileged ports as mentioned here:
   - https://github.com/i0natan/nodebestpractices/blob/master/sections/security/non-root-user.md
 
-As an example, in the `alpine.Dockerfile` the app exposes port 3000 (non-privileged port) and uses the built in non root user, as well as using the alpine node image to reduce image size. More information about the alpine image can be found here:
-  - https://hub.docker.com/_/node/
-
-The `docker-compose.alpine.yml` includes both of these modifications. To run, use the `-f` option of docker-compose to specify a compose file.
-
-```bash
-docker-compose -f docker-compose.alpine.yml up
-```
-
-The modifications needed are to change the exposed port of the node service from `- "80:80"` to `- "80:3000"` and if having root privileges in development is required, add the `user: root` field under the node service.
-
 ### Other Resources
 
  - https://blog.hasura.io/an-exhaustive-guide-to-writing-dockerfiles-for-node-js-web-apps-bbee6bd2f3c4
