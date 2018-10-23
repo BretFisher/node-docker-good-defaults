@@ -40,7 +40,6 @@ services:
     image: mongo
     ports:
       - "27017:27017"
-    restart: always
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=example
