@@ -32,8 +32,8 @@ services:
       - notused:/opt/app/node_modules
     environment:
       - NODE_ENV=development
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=root
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=example
+      - MONGO_HOSTNAME=mongodb://root:example@mongo:27017
+      - MONGO_DATABASE_NAME=example-database
     depends_on:
       - mongo
   mongo:
