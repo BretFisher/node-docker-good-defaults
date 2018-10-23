@@ -17,13 +17,12 @@ const MongoClient = require('mongodb').MongoClient;
 
 const {
   ME_CONFIG_MONGODB_ADMINUSERNAME,
-  ME_CONFIG_MONGODB_ADMINPASSWORD
+  ME_CONFIG_MONGODB_ADMINPASSWORD,
+  MONGO_INITDB_DATABASE
 } = process.env;
 
 // Connection URL
 const url = `mongodb://${ME_CONFIG_MONGODB_ADMINUSERNAME}:${ME_CONFIG_MONGODB_ADMINPASSWORD}@mongo:27017`;
-// Database Name
-const dbName = 'example-database';
 // Create a new MongoClient
 const client = new MongoClient(url);
 
@@ -31,7 +30,7 @@ let db;
 // Use connect method to connect to the Server
 client.connect(function(err) {
   console.log("Connected successfully to server");
-  db = client.db(dbName);
+  db = client.db(MONGO_INITDB_DATABASE);
 });
 
 // Api
