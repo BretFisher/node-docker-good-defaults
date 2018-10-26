@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "express": "^4.16.3",
+    "mongodb": "^3.1.8",
     "morgan": "^1.8.1"
   },
   "devDependencies": {
