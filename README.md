@@ -66,7 +66,7 @@ To execute the unit-tests, you would:
 As mentioned in the official docker node image docs, Docker runs the image as root. This can pose a potential security issue.
   - https://github.com/nodejs/docker-node/blob/master/docs/BestPractices.md#non-root-user
 
-As a security best practise, it is recommended for node apps to listen on non-privileged ports as mentioned here:
+As a security best practice, it is recommended for node apps to listen on non-privileged ports as mentioned here:
   - https://github.com/i0natan/nodebestpractices/blob/master/sections/security/non-root-user.md
 
 ### Other Resources
