@@ -7,7 +7,7 @@ services:
     # reminder, don't use latest tag in production, use versions created by CI/CD
     image: bretfisher/node-docker-good-defaults:latest
     ports:
-      - "80:80"
+      - "80:3000"
     environment:
       - NODE_ENV=production
     deploy:
