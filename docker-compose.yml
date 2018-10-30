@@ -1,4 +1,4 @@
-version: '2.1'
+version: '2.3'
 
 services:
   node:
@@ -49,7 +49,7 @@ services:
       test: echo 'db.stats().ok' | mongo localhost:27017/example-database --quiet
       interval: 5s
       timeout: 5s
-      retries: 12
+      retries: 3
 
 volumes:
     notused:
