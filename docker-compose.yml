@@ -1,4 +1,4 @@
-version: '3.1'
+version: '2.3'
 
 services:
   node:
@@ -35,7 +35,8 @@ services:
       - MONGO_HOSTNAME=mongodb://root:example@mongo:27017
       - MONGO_DATABASE_NAME=example-database
     depends_on:
-      - mongo
+      mongo:
+        condition: service_healthy
   mongo:
     image: mongo
     ports:
@@ -44,6 +45,11 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=example
       - MONGO_INITDB_DATABASE=example-database
+    healthcheck:
+      test: echo 'db.stats().ok' | mongo localhost:27017/example-database --quiet
+      interval: 5s
+      timeout: 5s
+      retries: 3
 
 volumes:
     notused:
