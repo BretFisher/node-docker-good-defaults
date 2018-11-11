@@ -10,6 +10,34 @@ services:
       - "80:3000"
     environment:
       - NODE_ENV=production
+      - MONGO_USERNAME_FILE=/run/secrets/mongo_root
+      - MONGO_PASSWORD_FILE=/run/secrets/mongo_root_password
+      - MONGO_DATABASE_NAME=example-database
+    secrets:
+      - mongo_root
+      - mongo_root_password
     deploy:
-      replicas: 2
+      replicas: 1
 
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME_FILE=/run/secrets/mongo_root
+      - MONGO_INITDB_ROOT_PASSWORD_FILE=/run/secrets/mongo_root_password
+      - MONGO_INITDB_DATABASE=example-database
+    secrets:
+      - mongo_root
+      - mongo_root_password
+    # healthcheck:
+    #   test: echo 'db.stats().ok' | mongo localhost:27017/example-database --quiet
+    #   interval: 5s
+    #   timeout: 5s
+    #   retries: 3
+
+secrets:
+  mongo_root:
+    external: true
+  mongo_root_password:
+    external: true

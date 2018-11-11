@@ -1,4 +1,4 @@
-version: '2.3'
+version: '3.1'
 
 services:
   node:
@@ -32,19 +32,26 @@ services:
       - notused:/opt/app/node_modules
     environment:
       - NODE_ENV=development
-      - MONGO_HOSTNAME=mongodb://root:example@mongo:27017
+      - MONGO_USERNAME_FILE=/run/secrets/mongo_root
+      - MONGO_PASSWORD_FILE=/run/secrets/mongo_root_password
       - MONGO_DATABASE_NAME=example-database
+    secrets:
+      - mongo_root
+      - mongo_root_password
     depends_on:
-      mongo:
-        condition: service_healthy
+      - mongo
+
   mongo:
     image: mongo
     ports:
       - "27017:27017"
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=example
+      - MONGO_INITDB_ROOT_USERNAME_FILE=/run/secrets/mongo_root
+      - MONGO_INITDB_ROOT_PASSWORD_FILE=/run/secrets/mongo_root_password
       - MONGO_INITDB_DATABASE=example-database
+    secrets:
+      - mongo_root
+      - mongo_root_password
     healthcheck:
       test: echo 'db.stats().ok' | mongo localhost:27017/example-database --quiet
       interval: 5s
@@ -52,4 +59,10 @@ services:
       retries: 3
 
 volumes:
-    notused:
+  notused:
+
+secrets:
+  mongo_root:
+    file: ./secrets/mongo_root
+  mongo_root_password:
+    file: ./secrets/mongo_root_password
