@@ -17,7 +17,7 @@ services:
       - mongo_root
       - mongo_root_password
     deploy:
-      replicas: 1
+      replicas: 2
 
   mongo:
     image: mongo
