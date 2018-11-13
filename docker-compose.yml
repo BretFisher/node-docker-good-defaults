@@ -1,6 +1,7 @@
 version: '2.3'
 
 services:
+
   node:
     build:
       context: .
@@ -40,6 +41,8 @@ services:
     depends_on:
       mongo:
         condition: service_healthy
+    healthcheck:
+      disable: true
 
   mongo:
     image: mongo
@@ -52,7 +55,8 @@ services:
     healthcheck:
       test: echo 'db.stats().ok' | mongo localhost:27017/example-database --quiet
       interval: 5s
-      timeout: 5s
+      start_period: 10s
+      timeout: 4s
       retries: 3
 
 volumes:
