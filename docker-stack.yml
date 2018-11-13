@@ -12,6 +12,8 @@ services:
       - NODE_ENV=production
       - MONGO_USERNAME_FILE=/run/secrets/mongo_root
       - MONGO_PASSWORD_FILE=/run/secrets/mongo_root_password
+      - MONGO_HOSTNAME=mongo
+      - MONGO_PORT=27017
       - MONGO_DATABASE_NAME=example-database
     secrets:
       - mongo_root

@@ -18,11 +18,13 @@ const MongoClient = require('mongodb').MongoClient;
 const {
   MONGO_USERNAME,
   MONGO_PASSWORD,
+  MONGO_HOSTNAME,
+  MONGO_PORT,
   MONGO_DATABASE_NAME
 } = process.env;
 
 // Connection URL
-const url = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo:27017`;
+const url = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_PORT}`;
 
 // Create a new MongoClient
 const client = new MongoClient(url);

@@ -34,6 +34,8 @@ services:
       - NODE_ENV=development
       - MONGO_USERNAME=root
       - MONGO_PASSWORD=example
+      - MONGO_HOSTNAME=mongo
+      - MONGO_PORT=27017
       - MONGO_DATABASE_NAME=example-database
     depends_on:
       mongo:
