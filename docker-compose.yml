@@ -52,6 +52,8 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=example
       - MONGO_INITDB_DATABASE=example-database
+    volumes:
+      - ./database/seed.js:/docker-entrypoint-initdb.d/seed.js
     healthcheck:
       test: echo 'db.stats().ok' | mongo localhost:27017/example-database --quiet
       interval: 5s
