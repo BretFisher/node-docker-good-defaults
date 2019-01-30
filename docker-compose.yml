@@ -53,7 +53,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=example
       - MONGO_INITDB_DATABASE=example-database
     healthcheck:
-      test: echo 'db.stats().ok' | mongo localhost:27017/example-database --quiet
+      test: "[ `echo 'db.runCommand(\"ping\").ok' | mongo localhost/example-database --quiet` ] && echo 0 || echo 1"
       interval: 5s
       start_period: 10s
       timeout: 4s
