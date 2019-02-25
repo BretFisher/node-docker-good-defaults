@@ -21,6 +21,7 @@
  - **Proper NODE_ENV use**. Defaults to `NODE_ENV=production` in Dockerfile and overrides to `development` in docker-compose for local dev.
  - **Don't add dev dependencies into production image**. Proper `NODE_ENV` use means dev dependencies won't be installed in container by default. Using docker-compose will build with them by default.
  - **Enables proper SIGTERM/SIGINT for graceful exit**. Defaults to `node index.js` rather then npm for allowing graceful shutdown of node. npm doesn't pass SIGTERM/SIGINT properly (you can't ctrl-c when running `docker run` in foreground). To get `node index.js` to graceful exit, extra signal-catching code is needed. The `Dockerfile` and `index.js` document the options and links to known issues.
+ - **Run node in the container as `node` user, not `root`**. 
  - **Use docker-stack.yml example for Docker Swarm deployments**.
 
 
@@ -47,7 +48,7 @@ If this was your Node.js app, to start local development you would:
  - Be sure to use `docker-compose down` to cleanup after your done dev'ing.
 
 If you wanted to add a package while docker-compose was running your app:
- - `docker-compose exec node npm install --save <package name>`
+ - `docker-compose exec -w /opt/app_dep node npm install --save <package name>`
  - This installs it inside the running container.
  - Nodemon will detect the change and restart.
  - `--save` will add it to the package.json for next `docker-compose build`
@@ -75,7 +76,7 @@ As a security best practice, it is recommended for node apps to listen on non-pr
 
 MIT License, 
 
-Copyright (c) 2015-2018 Bret Fisher
+Copyright (c) 2015-2019 Bret Fisher
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
