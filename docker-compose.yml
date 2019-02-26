@@ -11,27 +11,27 @@ services:
     # NOTE: if nodemon isn't restarting on changes, you might be on Windows
     # which has trouble seeing file changes, so add -L to use legacy polling
     # https://github.com/remy/nodemon#application-isnt-restarting
-    #command: ../app_dep/node_modules/.bin/nodemon --debug=0.0.0.0:5858
-    command: ../app_dep/node_modules/.bin/nodemon --inspect=0.0.0.0:9229 ./bin/www
+    #command: ../node_modules/.bin/nodemon --debug=0.0.0.0:5858
+    command: ../node_modules/.bin/nodemon --inspect=0.0.0.0:9229 ./bin/www
     ports:
       - "80:3000"
       - "9229:9229"
       - "9230:9230"
     volumes:
-      - .:/opt/app:delegated
+      - .:/opt/node_app/app:delegated
       # bind-mounting these two files in will let you add packages during development without rebuilding
       # for example, to add bower to your app while developing, just install it inside the container
       # and then nodemon will restart. Your changes will last until you "docker-compose down" and will
       # be saved on host for next build
       # NOTE: this won't work on Docker Toolbox (virtualbox) which doesn't bind-mount single files
       # docker-compose exec node npm install --save bower
-      - ./package.json:/opt/app_dep/package.json
-      - ./package-lock.json:/opt/app_dep/package-lock.json
+      - ./package.json:/opt/node_app/package.json
+      - ./package-lock.json:/opt/node_app/package-lock.json
       # this is a workaround to prevent host node_modules from accidently getting mounted in container
       # in case you want to use node/npm both outside container for test/lint etc. and also inside container
       # this will overwrite the default node_modules dir in container so it won't conflict with our
-      # /opt/node_modules location. Thanks to PR from @brnluiz
-      - notused:/opt/app/node_modules
+      # /opt/node_app/node_modules location. Thanks to PR from @brnluiz
+      - notused:/opt/node_app/app/node_modules
     environment:
       - NODE_ENV=development
       - MONGO_USERNAME=root
