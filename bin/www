@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const app = require("../index");
-var express = require('express');
+
 
 // Constants
 const PORT = process.env.PORT || 8080;
