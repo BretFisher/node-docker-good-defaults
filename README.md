@@ -2,7 +2,7 @@
 
 > This tries to be a "good defaults" example of using Node.js in Docker for local development and shipping to production with all the bells, whistles, and best practices. Issues/PR welcome.
 
-**Note** I have a more complete and up to date version of this in my [Docker for Node.js course](https://www.bretfisher.com/node/). Get 8 hours of video on how to use the best of Docker for Node.js projects [for only $9.99 with my coupon](https://www.bretfisher.com/node/).
+**Note** I have a more complete and up-to-date version of this in my [Docker for Node.js course](https://www.bretfisher.com/node/). Get 8 hours of video on how to use the best of Docker for Node.js projects [for only $9.99 with my coupon](https://www.bretfisher.com/node/).
 
 **Also Note**, I have other courses and resources on [Docker and Docker Swarm here](https://www.bretfisher.com/docker).
 
