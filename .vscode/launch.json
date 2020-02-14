@@ -8,7 +8,7 @@
             "protocol": "inspector",
             "port": 9229,
             "localRoot": "${workspaceRoot}",
-            "remoteRoot": "/opt/app"
+            "remoteRoot": "/opt/node_app/app"
         },
         {
             "name": "Docker Test (Attach 9230 --inspect)",
@@ -17,7 +17,7 @@
             "protocol": "inspector",
             "port": 9230,
             "localRoot": "${workspaceRoot}",
-            "remoteRoot": "/opt/app",
+            "remoteRoot": "/opt/node_app/app",
             "preLaunchTask": "Docker npm run test-wait-debuger", // See ./tasks.json
             "internalConsoleOptions": "openOnSessionStart"
         }
