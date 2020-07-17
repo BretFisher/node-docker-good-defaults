@@ -33,7 +33,7 @@ services:
       - mongo_root
       - mongo_root_password
     healthcheck:
-      test: echo 'db.stats().ok' | mongo localhost:27017/example-database --quiet
+      test: "[ `echo 'db.runCommand(\"ping\").ok' | mongo localhost/example-database --quiet` ] && echo 0 || echo 1"
       interval: 5s
       timeout: 5s
       retries: 3
