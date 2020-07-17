@@ -1,4 +1,7 @@
-version: '2.3'
+version: '2.4'
+# version 2.x allows you to use depends_on with conditions that cause
+# the node app to wait on mongo to respond to a healthy healthcheck before node is started
+# v3.x doesn't have this feature yet, and is only needed if you want to use Swarm
 
 services:
 
@@ -46,7 +49,7 @@ services:
       disable: true
 
   mongo:
-    image: mongo
+    image: mongo:4
     ports:
       - "27017:27017"
     environment:
