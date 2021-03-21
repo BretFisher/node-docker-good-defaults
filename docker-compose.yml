@@ -21,7 +21,7 @@ services:
       - "9229:9229"
       - "9230:9230"
     volumes:
-      - .:/opt/node_app/app:delegated
+      - .:/opt/node_app/app
       # bind-mounting these two files in will let you add packages during development without rebuilding
       # for example, to add bower to your app while developing, just install it inside the container
       # and then nodemon will restart. Your changes will last until you "docker-compose down" and will
