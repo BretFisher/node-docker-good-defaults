@@ -22,14 +22,6 @@ services:
       - "9230:9230"
     volumes:
       - .:/opt/node_app/app
-      # bind-mounting these two files in will let you add packages during development without rebuilding
-      # for example, to add bower to your app while developing, just install it inside the container
-      # and then nodemon will restart. Your changes will last until you "docker-compose down" and will
-      # be saved on host for next build
-      # NOTE: this won't work on Docker Toolbox (virtualbox) which doesn't bind-mount single files
-      # docker-compose exec node npm install --save bower
-      - ./package.json:/opt/node_app/package.json
-      - ./package-lock.json:/opt/node_app/package-lock.json
       # this is a workaround to prevent host node_modules from accidently getting mounted in container
       # in case you want to use node/npm both outside container for test/lint etc. and also inside container
       # this will overwrite the default node_modules dir in container so it won't conflict with our

@@ -52,7 +52,7 @@ If this was your Node.js app, to start local development you would:
  - Be sure to use `docker-compose down` to cleanup after your done dev'ing.
 
 If you wanted to add a package while docker-compose was running your app:
- - `docker-compose exec -w /opt/node_app node npm install --save <package name>`
+ - `docker-compose exec node npm install --save <package name>`
  - This installs it inside the running container.
  - Nodemon will detect the change and restart.
  - `--save` will add it to the package.json for next `docker-compose build`
