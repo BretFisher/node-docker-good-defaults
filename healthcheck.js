@@ -1,4 +1,4 @@
-var http = require("http");
+var http = require('http');
 
 var options = {
   timeout: 2000,
@@ -13,7 +13,7 @@ var request = http.request(options, (res) => {
   process.exit();
 });
 
-request.on('error', function(err) {
+request.on('error', function (err) {
   console.error('ERROR', err);
   process.exit(1);
 });
