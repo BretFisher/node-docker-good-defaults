@@ -1,7 +1,7 @@
 # Node.js + Docker for Showing Good Defaults in Using Node.js with Docker
 
-[![Lint Code Base](https://github.com/BretFisher/node-docker-good-defaults/actions/workflows/linter.yml/badge.svg)](https://github.com/BretFisher/node-docker-good-defaults/actions/workflows/linter.yml)
-[![Build and Push Image](https://github.com/BretFisher/node-docker-good-defaults/actions/workflows/docker-build-and-push.yml/badge.svg)](https://github.com/BretFisher/node-docker-good-defaults/actions/workflows/docker-build-and-push.yml)
+[![Lint Code Base](https://github.com/BretFisher/node-docker-good-defaults/actions/workflows/call-super-linter.yaml/badge.svg)](https://github.com/BretFisher/node-docker-good-defaults/actions/workflows/call-super-linter.yaml)
+[![Docker Build](https://github.com/BretFisher/node-docker-good-defaults/actions/workflows/call-docker-build.yaml/badge.svg)](https://github.com/BretFisher/node-docker-good-defaults/actions/workflows/call-docker-build.yaml)
 
 > This tries to be a "good defaults" example of starting to use Node.js in Docker for local development and shipping to production with basic bells, whistles, and best practices. Issues/PR welcome.
 
