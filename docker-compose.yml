@@ -1,7 +1,6 @@
-version: '2.4'
-# version 2.x allows you to use depends_on with conditions that cause
-# the node app to wait on mongo to respond to a healthy healthcheck before node is started
-# v3.x doesn't have this feature yet, and is only needed if you want to use Swarm
+# version: '2.4'
+# versions no longer needed for compose CLI use (as of 2020)
+# If using swarm, you'll still need version 3.9
 
 services:
 
@@ -24,10 +23,10 @@ services:
       - .:/opt/node_app/app
       # bind-mounting these two files in will let you add packages during development without rebuilding
       # for example, to add bower to your app while developing, just install it inside the container
-      # and then nodemon will restart. Your changes will last until you "docker-compose down" and will
-      # be saved on host for next build
-      # NOTE: this won't work on Docker Toolbox (virtualbox) which doesn't bind-mount single files
-      # docker-compose exec node npm install --save bower
+      # and then nodemon will restart. Your changes will last until you "docker compose down" and will
+      # be saved on host for next build.
+      # remember to isntall from the parent directory to the code bind-mount:
+      # docker compose exec -w /opt/node_app node npm install --save bower
       - ./package.json:/opt/node_app/package.json
       - ./package-lock.json:/opt/node_app/package-lock.json
       # this is a workaround to prevent host node_modules from accidently getting mounted in container
@@ -61,7 +60,7 @@ services:
       # explains that any data dropped into the docker-entrypoint-initdb.d directory will be injected 
       # into mongo at startup. This is also a common pattern for other db solutions like mysql or psql
       - ./database/seed.js:/docker-entrypoint-initdb.d/seed.js
-    # we need to check health here, so that docker-compose will wait for a healthy mongo before it starts node
+    # we need to check health here, so that docker compose will wait for a healthy mongo before it starts node
     healthcheck:
       test: "[ `echo 'db.runCommand(\"ping\").ok' | mongo localhost/example-database --quiet` ] && echo 0 || echo 1"
       interval: 5s

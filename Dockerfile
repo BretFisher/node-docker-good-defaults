@@ -1,6 +1,6 @@
 # if you're doing anything beyond your local machine, please pin this to a specific version at https://hub.docker.com/_/node/
-# FROM node:14-alpine also works here for a smaller image
-FROM node:14-slim
+# FROM node:14-alpine also works here for a smaller image (But I prefer the more reliable debian slim)
+FROM node:16-slim
 
 # set our node environment, either development or production
 # defaults to production, compose overrides this to development on build and run
