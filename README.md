@@ -77,7 +77,7 @@ If this was your Node.js app, to start local development you would:
 - Mounts the pwd to the app dir in container.
 - If you need other services like databases,
 just add to compose file and they'll be added to the custom Docker network for this app on `up`.
-- Compose won't rebuild automatically, so either run `docker compose build` after changing `package.json` 
+- Compose won't rebuild automatically, so either run `docker compose build` after changing `package.json`
 or do what I do and always run `docker compose up --build`.
 - Be sure to use `docker compose down` to cleanup after your done dev'ing.
 
@@ -91,7 +91,7 @@ If you wanted to add a package while docker-compose was running your app:
 To execute the unit-tests, you would:
 
 - Execute `docker compose exec node npm test`, It will:
-- Run a process `npm test` in the container node.
+- Run a process `npm test` in the container.
 - You can use the *vscode* to debug unit-tests with config `Docker Test (Attach 9230 --inspect)`,
 It will:
   - Start a debugging process in the container and wait-for-debugger, this is done by *vscode tasks*
