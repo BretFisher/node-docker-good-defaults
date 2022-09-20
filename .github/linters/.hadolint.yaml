@@ -1,3 +1,13 @@
+# README: https://github.com/hadolint/hadolint
+
+# Often it's a good idea to do inline disables rather that repo-wide in this file.
+# Example of inline Dockerfile rules:
+# hadolint ignore=DL3018
+#RUN apk add --no-cache git
+
+failure-threshold: warning
+
+# or just ignore rules repo-wide
 ignored:
   - DL3003 #ignore that we use cd sometimes
   - DL3006 #image pin versions
@@ -8,3 +18,27 @@ ignored:
   - DL3059 #multiple consecutive runs
   - DL4006 #we don't need pipefail in this
   - SC2016 #we want single quotes sometimes
+
+
+# FULL TEMPLATE
+# failure-threshold: string               # name of threshold level (error | warning | info | style | ignore | none)
+# format: string                          # Output format (tty | json | checkstyle | codeclimate | gitlab_codeclimate | gnu | codacy)
+# ignored: [string]                       # list of rules
+# label-schema:                           # See Linting Labels below for specific label-schema details
+#   author: string                        # Your name
+#   contact: string                       # email address
+#   created: timestamp                    # rfc3339 datetime
+#   version: string                       # semver
+#   documentation: string                 # url
+#   git-revision: string                  # hash
+#   license: string                       # spdx
+# no-color: boolean                       # true | false
+# no-fail: boolean                        # true | false
+# override:
+#   error: [string]                       # list of rules
+#   warning: [string]                     # list of rules
+#   info: [string]                        # list of rules
+#   style: [string]                       # list of rules
+# strict-labels: boolean                  # true | false
+# disable-ignore-pragma: boolean          # true | false
+# trustedRegistries: string | [string]    # registry or list of registries
