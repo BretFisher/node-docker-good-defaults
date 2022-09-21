@@ -25,7 +25,7 @@ services:
       # for example, to add bower to your app while developing, just install it inside the container
       # and then nodemon will restart. Your changes will last until you "docker compose down" and will
       # be saved on host for next build.
-      # remember to isntall from the parent directory to the code bind-mount:
+      # remember to install from the parent directory to the code bind-mount:
       # docker compose exec -w /opt/node_app node npm install --save bower
       - ./package.json:/opt/node_app/package.json
       - ./package-lock.json:/opt/node_app/package-lock.json
