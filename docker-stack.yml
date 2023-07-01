@@ -1,6 +1,6 @@
-version: '3.1'
-
+version: '3.9'
 # a stack-file version of this for running in Swarm services
+# Swarm still needs the 3.x version for stacks
 
 services:
   node:
