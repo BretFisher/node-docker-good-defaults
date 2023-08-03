@@ -1,0 +1,75 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-node-deployment
+  labels:
+    app: node
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: node
+  template:
+    metadata:
+      labels:
+        app: node
+    spec:
+      containers:
+      - name: app-node-pod
+        image: filip3k/app-node-pod:latest
+        env:
+        - name: NODE_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: app-configmap
+              key: NODE_ENV
+        - name: MONGO_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: app-configmap
+              key: MONGO_USERNAME
+        - name: MONGO_HOSTNAME
+          valueFrom:
+            configMapKeyRef:
+              name: app-configmap
+              key: MONGO_HOSTNAME
+        - name: MONGO_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: app-configmap
+              key: MONGO_PORT
+        - name: MONGO_DATABASE_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: app-configmap
+              key: MONGO_DATABASE_NAME
+        - name: MONGO_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: app-secret
+              key: MONGO_PASSWORD
+        volumeMounts:
+        - name: node-volume
+          mountPath: /opt/node_app/app
+        - name: package-volume
+          mountPath: /opt/node_app/package.json
+        - name: package-lock-volume
+          mountPath: /opt/node_app/package-lock.json
+        ports:
+        - containerPort: 3000
+        - containerPort: 9229
+        - cotnainerPort: 9230
+      volumes:
+      - name: node-volume
+        hostPath:
+          path: /var/node-app-kubernetes # Insert the right path
+          type: Directory
+      - name: package-volume
+        hostPath:
+          path: /var/node-app-kubernetes/package.json # Insert the right path
+          type: File
+      - name: package-lock-volume
+        hostPath:
+          path: /app/node-app-kubernetes/package-lock.json # Insert the right path
+          type: File

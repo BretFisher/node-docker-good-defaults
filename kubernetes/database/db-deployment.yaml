@@ -1,0 +1,47 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-db-deployment
+  labels:
+    app: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+      - name: app-db-pod
+        image: mongo:4
+        ports:
+          containerPort: 27017
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: app-configmap
+              key: MONGO_INITDB_ROOT_USERNAME
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: app-secret
+              key: MONGO_INITDB_ROOT_PASSWORD
+        - name: MONGO_INITDB_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: app-configmap
+              key: MONGO_INITDB_DATABASE
+        volumeMounts:
+        - name: db-volume
+          mountPath: /docker-entrypoint-initdb.d/seed.js
+      
+      volumes:
+      - name: db-volume
+        hostPath:
+          path: /var/node-app-kubernetes/database/seed.js # Insert the right path to seed.js
+          type: File
