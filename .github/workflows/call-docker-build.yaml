@@ -1,5 +1,5 @@
 ---
-# template source: https://github.com/bretfisher/docker-build-workflow/blob/main/templates/call-docker-build.yaml
+# template source: https://github.com/black-da-bull/docker-build-workflow/blob/main/templates/call-docker-build.yaml
 name: Docker Build
 
 on:
