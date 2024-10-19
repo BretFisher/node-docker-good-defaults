@@ -6,7 +6,7 @@
 > This tries to be a "good defaults" example of starting to use Node.js in Docker for local development and shipping to production with basic bells, whistles, and best practices. Issues/PR welcome.
 
 **Note** I have more advanced examples of Node.js Dockerfiles and Compose files in my [DockerCon 2022 talk and repository](https://github.com/BretFisher/nodejs-rocks-in-docker).
-I also have more about everything Docker and Node.js in my 8 hour video course [Docker for Node.js](https://www.bretfisher.com/node/).
+ Hi I also have more about everything Docker and Node.js in my 8 hour video course [Docker for Node.js](https://www.bretfisher.com/node/).
 
 **Also Note**, I have other resources on [Docker and Kubernetes here](https://www.bretfisher.com/docker).
 
