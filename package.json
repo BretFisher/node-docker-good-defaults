@@ -18,13 +18,13 @@
   "dependencies": {
     "express": "^4.21.2",
     "mongodb": "^4.17.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.1"
   },
   "devDependencies": {
     "chai": "^4.3.4",
     "chai-http": "^4.3.0",
     "cross-env": "^7.0.3",
-    "mocha": "^9.1.4",
+    "mocha": "^11.7.5",
     "nodemon": "^2.0.15"
   }
 }
